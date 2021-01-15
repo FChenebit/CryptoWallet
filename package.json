@@ -1,0 +1,27 @@
+{
+  "name": "cryptowallet",
+  "version": "1.0.0",
+  "description": "small program, to get the value of my wallet of crypto, and be a support for my tutorial",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FChenebit/CryptoWallet.git"
+  },
+  "keywords": [
+    "cryptocurrency",
+    "node",
+    "tutorial"
+  ],
+  "engines": {
+    "node": "12.18.3"
+  },
+  "author": "FChenebit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FChenebit/CryptoWallet/issues"
+  },
+  "homepage": "https://github.com/FChenebit/CryptoWallet#readme"
+}
