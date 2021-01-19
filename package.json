@@ -4,8 +4,7 @@
   "main": "index.js",
   "description": "small program, to get the value of my wallet of crypto, and be a support for my tutorial",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"    
   },
   "repository": {
     "type": "git",
