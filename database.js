@@ -1,11 +1,16 @@
 const { Client } = require('pg');
 
-const client = new Client({
+const clientConfig = {
   connectionString: process.env.DATABASE_URL,
-  ssl: {
+};
+
+if (process.env.ENVIRONMENT === 'PRODUCTION') {
+  clientConfig.ssl = {
     rejectUnauthorized: true,
-  },
-});
+  };
+}
+
+const client = new Client(clientConfig);
 
 exports.start = async function start() {
   return client.connect();
