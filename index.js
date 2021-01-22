@@ -8,10 +8,15 @@ request.requestCrypto()
   .catch((error) => log.logMessage(error));
 
 async function getAllDataFromDatabase() {
-  await database.start();
-  const res = await database.getCurrencyRate('NOW');
-  await database.end();
-  return res;
+  try {
+    await database.start();
+    const res = await database.getCurrencyRate('NOW');
+    await database.end();
+    return res;
+  } catch (err) {
+    log.logMessage(err);
+    return {};
+  }
 }
 
 getAllDataFromDatabase()
