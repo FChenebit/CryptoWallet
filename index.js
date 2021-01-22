@@ -15,7 +15,7 @@ async function getAllDataFromDatabase() {
     return res;
   } catch (err) {
     log.logMessage(err);
-    return {};
+    throw err; // else promise is not rejected but solved
   }
 }
 

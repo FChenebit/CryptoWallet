@@ -5,13 +5,13 @@ const client = new Client({
 });
 
 exports.start = async function start() {
-  client.connect();
+  return client.connect();
 };
 
 exports.getCurrencyRate = async function getCurrencyRate(rateDate) {
   return client.query('SELECT NOW()');
 };
 
-exports.end = function end() {
-  client.end();
+exports.end = async function end() {
+  return client.end();
 };
