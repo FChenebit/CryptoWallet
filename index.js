@@ -10,15 +10,17 @@ request.requestCrypto()
 async function getAllDataFromDatabase() {
   try {
     await database.start();
-    const res = await database.getCurrencyRate('NOW');
+    const res = await database.getCurrencyRate(new Date('2020-12-29'));
     await database.end();
     return res;
   } catch (err) {
     log.logMessage(err);
+    await database.end();
     throw err; // else promise is not rejected but solved
   }
 }
 
 getAllDataFromDatabase()
-  .then((res) => { console.log(res.rows[0]); })
+  .then((res) => { console.log(res.rows); })
+  //{ console.log(res.rows[0]); console.log(res.rows[1]); console.log(res.rows[2]); })
   .catch((e) => console.error(e.stack));
