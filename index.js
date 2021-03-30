@@ -21,6 +21,6 @@ async function getAllDataFromDatabase() {
 }
 
 getAllDataFromDatabase()
-  .then((res) => { console.log(`TFC${res.rows}`); })
+  .then((res) => { console.log(`TFC${JSON.stringify(res.rows)}`); })
   // { console.log(res.rows[0]); console.log(res.rows[1]); console.log(res.rows[2]); })
   .catch((e) => console.error(e.stack));
