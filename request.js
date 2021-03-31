@@ -7,5 +7,12 @@ const apiHeader = {
 
 exports.requestCrypto = async function requestCrypto() {
   const response = await got(siteURL, { headers: apiHeader });
-  return response.body;
+  const { data } = JSON.parse(response.body);
+  const currencyId = Object.keys(data);
+  const todayCurrencyRate = {};
+  currencyId.forEach((element) => {
+    todayCurrencyRate[data[element].symbol] = data[element].quote.EUR.price;
+  });
+
+  return todayCurrencyRate;
 };

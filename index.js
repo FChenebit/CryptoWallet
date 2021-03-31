@@ -4,7 +4,7 @@ const database = require('./database.js');
 
 // log.logMessage('test log message');
 request.requestCrypto()
-  .then((answer) => log.logMessage(answer))
+  .then((answer) => log.logMessage(`answer : ${JSON.stringify(answer)}`))
   .catch((error) => log.logMessage(error));
 
 async function getAllDataFromDatabase() {
@@ -20,7 +20,7 @@ async function getAllDataFromDatabase() {
   }
 }
 
-getAllDataFromDatabase()
+/*getAllDataFromDatabase()
   .then((res) => { console.log(`TFC${JSON.stringify(res.rows)}`); })
-  // { console.log(res.rows[0]); console.log(res.rows[1]); console.log(res.rows[2]); })
   .catch((e) => console.error(e.stack));
+*/
