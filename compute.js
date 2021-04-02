@@ -10,6 +10,11 @@ exports.computeCurrencyAndTotalValue = function computeCurrencyAndTotalValue(req
     total += rate * quantity;
   });
 
+  const allEnvs = Object.keys(process.env);
+  allEnvs.forEach((curEnv) => {
+    console.log(`current env : ${curEnv}, value : ${process.env[curEnv]}, type of : ${typeof (process.env[curEnv])}`);
+  });
+
   totalByCurrencyCodes.TOTAL = total;
 
   return totalByCurrencyCodes;
