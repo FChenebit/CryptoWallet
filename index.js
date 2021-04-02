@@ -1,10 +1,15 @@
 const log = require('./log.js');
 const request = require('./request.js');
 const database = require('./database.js');
+const compute = require('./compute.js');
 
 // log.logMessage('test log message');
 request.requestCrypto()
-  .then((answer) => log.logMessage(`answer : ${JSON.stringify(answer)}`))
+  .then((answer) => {
+    console.log(`answer : ${JSON.stringify(answer)}`);
+    const computeResult = compute.computeCurrencyAndTotalValue(answer);
+    console.log(`result : ${JSON.stringify(computeResult)}`);
+  })
   .catch((error) => log.logMessage(error));
 
 async function getAllDataFromDatabase() {
