@@ -93,7 +93,7 @@ async function normalSchedule() {
           mailBody += `${period} rate : ${historicRate.toFixed(2)} ; delta percent : ${deltaPercent.toFixed(2)} `;
         });
       } else {
-        log.logMessage(`Value in API not in database : ${currencyCode}`);
+        // nothing to do. Currency will be in mail, without history.
       }
       mailBody += '\n';
       allInserts.push(database.saveCurrentRate(currencyCode,
