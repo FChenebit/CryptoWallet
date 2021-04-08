@@ -15,7 +15,8 @@ request.requestCrypto()
 async function getAllDataFromDatabase() {
   try {
     await database.start();
-    const res = await database.getCurrencyRate(new Date('2020-12-29'));
+    //const res = await database.getCurrencyRate(new Date('2020-12-29'));
+    const res = await database.getCurrencyRate(new Date('2020-10-03'));
     await database.end();
     return res;
   } catch (err) {
@@ -25,7 +26,6 @@ async function getAllDataFromDatabase() {
   }
 }
 
-/*getAllDataFromDatabase()
-  .then((res) => { console.log(`TFC${JSON.stringify(res.rows)}`); })
+getAllDataFromDatabase()
+  .then((res) => { console.log(`TFC ${JSON.stringify(res.rows)}`); })
   .catch((e) => console.error(e.stack));
-*/
