@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "normal_local": "./launchCrypto NORMAL",
-    "normal_heroku": "node scheduler.js normal"
+    "alert_local": "./launchCrypto ALERT",
+    "normal_heroku": "node scheduler.js NORMAL",
+    "alert_heroku": "node scheduler.js ALERT"
   },
   "repository": {
     "type": "git",

@@ -65,17 +65,9 @@ async function normalSchedule() {
     ratesRowByPeriod.OneYearAgo = archiveOneYearAgo.rows;
   }
 
-  console.log(`request anser : ${JSON.stringify(requestAnswer)}`);
-  console.log(`One Week : ${JSON.stringify(archiveOneWeekAgo.rows)}`);
-  console.log(`One Month : ${JSON.stringify(archiveOneMonthAgo.rows)}`);
-  console.log(`Six Month : ${JSON.stringify(archiveSixMonthAgo.rows)}`);
-  console.log(`One year : ${JSON.stringify(archiveOneYearAgo.rows)}`);
-  console.log(`database result : ${JSON.stringify(ratesRowByPeriod)}`);
-
   const historyForCurrencyAndPeriod = compute.computeHistoryForCurrency(requestAnswer,
     ratesRowByPeriod);
   const { ratesPeriodsByCurency, periodDates } = historyForCurrencyAndPeriod;
-  console.log(`historyForCurrency : ${JSON.stringify(historyForCurrencyAndPeriod)}`);
 
   const computeResult = compute.computeCurrencyAndTotalValue(requestAnswer);
 
@@ -105,31 +97,39 @@ async function normalSchedule() {
 
   mailBody += `for infomration, period dates : ${JSON.stringify(periodDates)}`;
 
-  console.log(`mail body : ${mailBody}`);
   mail.sendMail(`Normal Report From CryptoWallet from ${process.env.ENVIRONMENT}`, mailBody);
   database.end();
 }
 
+async function alertSchedule() {
+  request.requestCrypto()
+    .then((answer) => {
+      const computeResult = compute.computeCurrencyAndTotalValue(answer);
+      if (computeResult.TOTAL > process.env.ALERT_THRESHOLD) {
+        let mailBody = `Total value of my crypto wallet : ${computeResult.TOTAL.toFixed(2)} ; exceeding thresold : ${process.env.ALERT_THRESHOLD}\n\n`;
+        const currencyCodes = Object.keys(computeResult);
+        currencyCodes.forEach((currencyCode) => {
+          if (currencyCode !== 'TOTAL') {
+            mailBody += `Value for ${currencyCode} : ${computeResult[currencyCode].toFixed(2)}\n`;
+          }
+        });
+        mail.sendMail(`Alert Report From CryptoWallet from ${process.env.ENVIRONMENT}`, mailBody);
+      }
+    })
+    .catch((error) => log.logMessage(error));
+}
+
 if (mode === 'NORMAL') {
   normalSchedule()
-    .then(console.log('after normal'))
+    .then()
     .catch((error) => {
       log.logMessage(` error : ${error} ; stack : ${error.stack}`);
       database.end();
     });
 } else {
-  request.requestCrypto()
-    .then((answer) => {
-      const computeResult = compute.computeCurrencyAndTotalValue(answer);
-      let mailBody = `Total value of my crypto wallet : ${computeResult.TOTAL.toFixed(2)}\n\n`;
-      const currencyCodes = Object.keys(computeResult);
-      currencyCodes.forEach((currencyCode) => {
-        if (currencyCode !== 'TOTAL') {
-          mailBody += `Value for ${currencyCode} : ${computeResult[currencyCode].toFixed(2)}\n`;
-        }
-      });
-
-      mail.sendMail(`Normal Report From CryptoWallet from ${process.env.ENVIRONMENT}`, mailBody);
-    })
-    .catch((error) => log.logMessage(error));
+  alertSchedule()
+    .then()
+    .catch((error) => {
+      log.logMessage(` error : ${error} ; stack : ${error.stack}`);
+    });
 }
