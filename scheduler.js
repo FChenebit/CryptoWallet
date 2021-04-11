@@ -105,7 +105,7 @@ async function alertSchedule() {
   request.requestCrypto()
     .then((answer) => {
       const computeResult = compute.computeCurrencyAndTotalValue(answer);
-      if (computeResult.TOTAL > process.env.ALERT_THRESHOLD) {
+      if (computeResult.TOTAL > (process.env.ALERT_THRESHOLD ? process.env.ALERT_THRESHOLD : 0)) {
         let mailBody = `Total value of my crypto wallet : ${computeResult.TOTAL.toFixed(2)} ; exceeding thresold : ${process.env.ALERT_THRESHOLD}\n\n`;
         const currencyCodes = Object.keys(computeResult);
         currencyCodes.forEach((currencyCode) => {
