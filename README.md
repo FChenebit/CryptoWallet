@@ -2,7 +2,7 @@
 
 This is a small node program, that is supposed to run on heroku. It will provide user with the amount of a his cryptocurrency wallet, by sending an email everyday, or when over a threshold.
 
-It is also the support of a medium article : 
+It is also the support of a medium article : https://francoischenebit.medium.com/how-i-completed-my-own-coding-project-e01eb3a67b39
 
 environment variable to set are : 
 
